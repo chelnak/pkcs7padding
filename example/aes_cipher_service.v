@@ -18,7 +18,6 @@ fn (c &AESCypherService) encrypt(data string) []byte {
 	block := aes.new_cipher(c.key)
 	mode := cipher.new_cbc(block, iv)
 	mode.encrypt_blocks(mut padded, padded.clone())
-
 	// Prepend the iv to the encrypted data
 	iv << padded
 
@@ -32,7 +31,6 @@ fn (c &AESCypherService) decrypt(data string) []byte {
 	block := aes.new_cipher(c.key)
 	mut mode := cipher.new_cbc(block, iv)
 	mode.decrypt_blocks(mut src, src.clone())
-
 	unpadded := pkcs7.strip(src)
 
 	return unpadded
